@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GetSeen.ai — Your Resume. Nothing Invented.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+–teal: #0E9FA5;
+–teal-light: #2BBDC3;
+–teal-pale: #E6F7F8;
+–teal-mid: #B2E8EA;
+–blue: #2563EB;
+–blue-soft: #EFF6FF;
+–sky: #38BDF8;
+–dark: #0F1F2E;
+–mid: #4B6278;
+–light: #F0F8F9;
+–white: #FFFFFF;
+–border: #C7EAEC;
+–gradient: linear-gradient(135deg, #0E9FA5 0%, #2563EB 100%);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+font-family: ‘Plus Jakarta Sans’, sans-serif;
+background: var(–white);
+color: var(–dark);
+overflow-x: hidden;
+line-height: 1.6;
+}
+
+/* ── NAV ── */
+nav {
+position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+display: flex; align-items: center; justify-content: space-between;
+padding: 1rem 2.5rem;
+background: rgba(255,255,255,0.9);
+backdrop-filter: blur(16px);
+border-bottom: 1px solid rgba(14,159,165,0.12);
+}
+
+.logo {
+font-family: ‘Nunito’, sans-serif;
+font-size: 1.5rem;
+font-weight: 800;
+background: var(–gradient);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+letter-spacing: -0.01em;
+}
+
+.nav-links {
+display: flex; gap: 2rem; align-items: center; list-style: none;
+}
+
+.nav-links a {
+text-decoration: none;
+color: var(–mid);
+font-size: 0.88rem;
+font-weight: 500;
+transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(–teal); }
+
+.btn {
+display: inline-flex; align-items: center; gap: 0.4rem;
+padding: 0.6rem 1.3rem;
+border-radius: 100px;
+font-family: ‘Plus Jakarta Sans’, sans-serif;
+font-size: 0.88rem;
+font-weight: 600;
+cursor: pointer;
+text-decoration: none;
+transition: all 0.2s;
+border: none;
+}
+
+.btn-primary {
+background: var(–gradient);
+color: white;
+box-shadow: 0 4px 16px rgba(14,159,165,0.3);
+}
+
+.btn-primary:hover {
+transform: translateY(-2px);
+box-shadow: 0 8px 24px rgba(14,159,165,0.4);
+}
+
+.btn-ghost {
+background: transparent;
+color: var(–teal);
+border: 1.5px solid var(–teal);
+}
+
+.btn-ghost:hover {
+background: var(–teal-pale);
+}
+
+.btn-lg {
+padding: 0.85rem 2rem;
+font-size: 1rem;
+}
+
+/* ── HERO ── */
+.hero {
+min-height: 100vh;
+padding: 7rem 2.5rem 4rem;
+display: flex;
+align-items: center;
+position: relative;
+overflow: hidden;
+background: var(–white);
+}
+
+/* Soft blob background */
+.hero::before {
+content: ‘’;
+position: absolute;
+top: -15%;
+right: -5%;
+width: 700px;
+height: 700px;
+background: radial-gradient(ellipse, rgba(14,159,165,0.08) 0%, transparent 65%);
+pointer-events: none;
+}
+
+.hero::after {
+content: ‘’;
+position: absolute;
+bottom: -10%;
+left: -10%;
+width: 500px;
+height: 500px;
+background: radial-gradient(ellipse, rgba(37,99,235,0.06) 0%, transparent 65%);
+pointer-events: none;
+}
+
+.hero-inner {
+max-width: 1140px;
+margin: 0 auto;
+width: 100%;
+display: grid;
+grid-template-columns: 1.1fr 0.9fr;
+gap: 4rem;
+align-items: center;
+}
+
+.pill-tag {
+display: inline-flex;
+align-items: center;
+gap: 0.5rem;
+background: var(–teal-pale);
+border: 1px solid var(–teal-mid);
+color: var(–teal);
+padding: 0.35rem 1rem;
+border-radius: 100px;
+font-size: 0.78rem;
+font-weight: 600;
+letter-spacing: 0.03em;
+margin-bottom: 1.6rem;
+}
+
+.pill-dot {
+width: 7px; height: 7px;
+border-radius: 50%;
+background: var(–teal);
+animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+0%, 100% { opacity: 1; transform: scale(1); }
+50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.hero h1 {
+font-family: ‘Nunito’, sans-serif;
+font-size: clamp(2.6rem, 4.5vw, 4rem);
+font-weight: 800;
+line-height: 1.1;
+letter-spacing: -0.01em;
+margin-bottom: 1.4rem;
+color: var(–dark);
+}
+
+.hero h1 .highlight {
+background: var(–gradient);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
+
+.hero-sub {
+font-size: 1.05rem;
+color: var(–mid);
+line-height: 1.75;
+margin-bottom: 2.2rem;
+font-weight: 400;
+max-width: 500px;
+}
+
+.hero-cta {
+display: flex;
+gap: 1rem;
+align-items: center;
+flex-wrap: wrap;
+margin-bottom: 2.5rem;
+}
+
+.trust-row {
+display: flex;
+gap: 1.5rem;
+flex-wrap: wrap;
+}
+
+.trust-item {
+display: flex;
+align-items: center;
+gap: 0.4rem;
+font-size: 0.8rem;
+color: var(–mid);
+font-weight: 500;
+}
+
+.trust-item svg {
+color: var(–teal);
+flex-shrink: 0;
+}
+
+/* ── CARD MOCKUP ── */
+.card-stack {
+position: relative;
+padding: 1.5rem;
+}
+
+.card-bg {
+position: absolute;
+top: 0; left: 1.5rem; right: 1.5rem;
+height: 100%;
+background: var(–teal-pale);
+border-radius: 20px;
+transform: rotate(3deg);
+z-index: 0;
+}
+
+.card-bg2 {
+position: absolute;
+top: 0.5rem; left: 0.5rem; right: 0.5rem;
+height: 100%;
+background: var(–teal-mid);
+border-radius: 20px;
+transform: rotate(1.5deg);
+z-index: 0;
+opacity: 0.5;
+}
+
+.resume-card {
+position: relative;
+z-index: 1;
+background: white;
+border-radius: 20px;
+padding: 1.8rem;
+box-shadow: 0 24px 64px rgba(14,159,165,0.15), 0 4px 16px rgba(0,0,0,0.06);
+}
+
+.card-header {
+display: flex;
+align-items: flex-start;
+justify-content: space-between;
+margin-bottom: 1.2rem;
+padding-bottom: 1rem;
+border-bottom: 2px solid var(–teal-pale);
+}
+
+.card-name {
+font-family: ‘Nunito’, sans-serif;
+font-size: 1.2rem;
+font-weight: 800;
+color: var(–dark);
+margin-bottom: 0.2rem;
+}
+
+.card-contact {
+font-size: 0.7rem;
+color: var(–mid);
+}
+
+.verified-chip {
+display: flex;
+align-items: center;
+gap: 0.3rem;
+background: var(–teal-pale);
+border: 1px solid var(–teal-mid);
+color: var(–teal);
+padding: 0.25rem 0.6rem;
+border-radius: 100px;
+font-size: 0.68rem;
+font-weight: 700;
+white-space: nowrap;
+}
+
+.card-section { margin-bottom: 1rem; }
+
+.card-section-label {
+font-size: 0.62rem;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 0.1em;
+color: var(–teal);
+margin-bottom: 0.5rem;
+}
+
+.skeleton {
+height: 8px;
+border-radius: 100px;
+background: var(–light);
+margin-bottom: 0.35rem;
+}
+
+.skeleton.w-full { width: 100%; }
+.skeleton.w-3q { width: 75%; }
+.skeleton.w-half { width: 55%; }
+
+.ats-widget {
+position: absolute;
+bottom: -18px;
+right: 24px;
+background: white;
+border-radius: 14px;
+padding: 0.7rem 1.1rem;
+box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+display: flex;
+align-items: center;
+gap: 0.8rem;
+border: 1px solid var(–border);
+}
+
+.ats-ring {
+width: 44px; height: 44px;
+border-radius: 50%;
+background: conic-gradient(var(–teal) 94%, var(–teal-pale) 0);
+display: flex;
+align-items: center;
+justify-content: center;
+font-family: ‘Nunito’, sans-serif;
+font-size: 0.8rem;
+font-weight: 800;
+color: var(–teal);
+position: relative;
+}
+
+.ats-ring::before {
+content: ‘’;
+position: absolute;
+inset: 5px;
+border-radius: 50%;
+background: white;
+}
+
+.ats-ring span { position: relative; z-index: 1; }
+
+.ats-label { font-size: 0.72rem; color: var(–mid); line-height: 1.4; }
+.ats-label strong { display: block; color: var(–dark); font-size: 0.78rem; }
+
+/* ── STRIP ── */
+.strip {
+background: var(–dark);
+padding: 1.1rem 2.5rem;
+display: flex;
+justify-content: center;
+gap: 3rem;
+flex-wrap: wrap;
+}
+
+.strip-item {
+display: flex; align-items: center; gap: 0.5rem;
+font-size: 0.82rem; font-weight: 500; color: rgba(255,255,255,0.7);
+}
+
+.strip-item span { color: var(–teal-light); font-size: 0.9rem; }
+
+/* ── SECTIONS ── */
+.section {
+padding: 5.5rem 2.5rem;
+}
+
+.section-inner {
+max-width: 1140px;
+margin: 0 auto;
+}
+
+.eyebrow {
+font-size: 0.75rem;
+font-weight: 700;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+color: var(–teal);
+margin-bottom: 0.7rem;
+}
+
+.section-title {
+font-family: ‘Nunito’, sans-serif;
+font-size: clamp(1.8rem, 3vw, 2.6rem);
+font-weight: 800;
+line-height: 1.15;
+letter-spacing: -0.01em;
+margin-bottom: 1rem;
+color: var(–dark);
+}
+
+.section-sub {
+font-size: 1rem;
+color: var(–mid);
+line-height: 1.75;
+max-width: 520px;
+font-weight: 400;
+margin-bottom: 3rem;
+}
+
+/* ── HOW IT WORKS ── */
+.steps {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 1.5rem;
+}
+
+.step {
+background: var(–light);
+border-radius: 16px;
+padding: 2rem;
+border: 1px solid var(–border);
+transition: transform 0.2s, box-shadow 0.2s;
+position: relative;
+overflow: hidden;
+}
+
+.step::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 0; right: 0;
+height: 3px;
+background: var(–gradient);
+opacity: 0;
+transition: opacity 0.2s;
+}
+
+.step:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(14,159,165,0.12); }
+.step:hover::before { opacity: 1; }
+
+.step-num {
+width: 36px; height: 36px;
+border-radius: 10px;
+background: var(–gradient);
+color: white;
+font-family: ‘Nunito’, sans-serif;
+font-size: 0.9rem;
+font-weight: 800;
+display: flex; align-items: center; justify-content: center;
+margin-bottom: 1.2rem;
+}
+
+.step h3 {
+font-size: 1rem;
+font-weight: 700;
+margin-bottom: 0.5rem;
+color: var(–dark);
+}
+
+.step p {
+font-size: 0.88rem;
+color: var(–mid);
+line-height: 1.65;
+}
+
+/* ── PROMISE ── */
+.promise-section {
+background: var(–dark);
+color: white;
+}
+
+.promise-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 4rem;
+align-items: start;
+}
+
+.promise-section .eyebrow { color: var(–teal-light); }
+.promise-section .section-title { color: white; }
+.promise-section .section-sub { color: rgba(255,255,255,0.55); margin-bottom: 1.5rem; }
+
+.check-list { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+
+.check-list li {
+display: flex; align-items: flex-start; gap: 0.7rem;
+font-size: 0.92rem; color: rgba(255,255,255,0.8); line-height: 1.5;
+}
+
+.check-icon {
+width: 20px; height: 20px; border-radius: 50%;
+background: rgba(14,159,165,0.2);
+border: 1.5px solid var(–teal-light);
+display: flex; align-items: center; justify-content: center;
+flex-shrink: 0; margin-top: 1px;
+font-size: 0.6rem; color: var(–teal-light);
+}
+
+.x-icon {
+background: rgba(255,255,255,0.05);
+border-color: rgba(255,255,255,0.15);
+color: rgba(255,255,255,0.25);
+}
+
+.cant-list li { color: rgba(255,255,255,0.3); }
+
+.list-eyebrow {
+font-size: 0.7rem; font-weight: 700;
+letter-spacing: 0.1em; text-transform: uppercase;
+color: rgba(255,255,255,0.35);
+margin-bottom: 1rem;
+}
+
+/* ── PRICING ── */
+.pricing-bg { background: var(–light); }
+
+.pricing-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 1.5rem;
+margin-top: 0.5rem;
+}
+
+.price-card {
+background: white;
+border-radius: 20px;
+padding: 2rem;
+border: 1.5px solid var(–border);
+position: relative;
+transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.price-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(14,159,165,0.1); }
+
+.price-card.featured {
+border-color: var(–teal);
+background: white;
+box-shadow: 0 0 0 4px rgba(14,159,165,0.08);
+}
+
+.featured-badge {
+position: absolute;
+top: -13px; left: 50%; transform: translateX(-50%);
+background: var(–gradient);
+color: white;
+font-size: 0.68rem; font-weight: 700;
+padding: 0.25rem 0.9rem;
+border-radius: 100px;
+letter-spacing: 0.05em;
+white-space: nowrap;
+}
+
+.plan-tier {
+font-size: 0.72rem; font-weight: 700;
+letter-spacing: 0.1em; text-transform: uppercase;
+color: var(–mid); margin-bottom: 0.7rem;
+}
+
+.plan-price {
+font-family: ‘Nunito’, sans-serif;
+font-size: 2.4rem; font-weight: 800;
+line-height: 1; color: var(–dark);
+margin-bottom: 0.2rem;
+}
+
+.plan-price sub {
+font-family: ‘Plus Jakarta Sans’, sans-serif;
+font-size: 0.9rem; font-weight: 400;
+color: var(–mid); vertical-align: baseline;
+}
+
+.plan-tagline {
+font-size: 0.85rem; color: var(–mid);
+margin-bottom: 1.5rem; line-height: 1.5;
+}
+
+.plan-features { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 2rem; }
+
+.plan-features li {
+display: flex; align-items: flex-start; gap: 0.5rem;
+font-size: 0.85rem; color: var(–dark); line-height: 1.4;
+}
+
+.plan-features li::before {
+content: ‘✓’; color: var(–teal);
+font-weight: 700; flex-shrink: 0; font-size: 0.8rem;
+margin-top: 0.1rem;
+}
+
+/* ── CTA ── */
+.cta-section {
+background: var(–gradient);
+padding: 5rem 2.5rem;
+text-align: center;
+position: relative;
+overflow: hidden;
+}
+
+.cta-section::before {
+content: ‘’;
+position: absolute; inset: 0;
+background: url(“data:image/svg+xml,%3Csvg width=‘60’ height=‘60’ viewBox=‘0 0 60 60’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cg fill=‘none’ fill-rule=‘evenodd’%3E%3Cg fill=’%23ffffff’ fill-opacity=‘0.04’%3E%3Ccircle cx=‘30’ cy=‘30’ r=‘2’/%3E%3C/g%3E%3C/g%3E%3C/svg%3E”);
+}
+
+.cta-section .section-title { color: white; margin: 0 auto 1rem; }
+.cta-section .section-sub { color: rgba(255,255,255,0.8); margin: 0 auto 2.5rem; text-align: center; }
+
+.btn-white {
+background: white;
+color: var(–teal);
+font-weight: 700;
+box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.2); }
+
+/* ── FOOTER ── */
+footer {
+background: var(–dark);
+color: rgba(255,255,255,0.45);
+padding: 1.8rem 2.5rem;
+display: flex; justify-content: space-between; align-items: center;
+font-size: 0.8rem; flex-wrap: wrap; gap: 1rem;
+}
+
+footer .logo { font-size: 1.1rem; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-left > * {
+animation: fadeUp 0.5s ease forwards;
+opacity: 0;
+}
+.hero-left > *:nth-child(1) { animation-delay: 0.05s; }
+.hero-left > *:nth-child(2) { animation-delay: 0.15s; }
+.hero-left > *:nth-child(3) { animation-delay: 0.25s; }
+.hero-left > *:nth-child(4) { animation-delay: 0.35s; }
+.hero-left > *:nth-child(5) { animation-delay: 0.45s; }
+
+.card-stack {
+animation: fadeUp 0.7s ease 0.2s forwards;
+opacity: 0;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+nav { padding: 1rem 1.2rem; }
+.hero { padding: 5.5rem 1.2rem 3rem; }
+.hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+.steps { grid-template-columns: 1fr; }
+.promise-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+.pricing-grid { grid-template-columns: 1fr; }
+.strip { gap: 1rem; padding: 1rem 1.2rem; }
+.section { padding: 4rem 1.2rem; }
+}
+</style>
+
+</head>
+<body>
+
+<!-- NAV -->
+
+<nav>
+  <div class="logo">GetSeen.ai</div>
+  <ul class="nav-links">
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#promise">Our promise</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#pricing" class="btn btn-primary">Get early access</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="pill-tag">
+        <span class="pill-dot"></span>
+        No hallucinations. By design.
+      </div>
+      <h1>Your resume.<br><span class="highlight">Actually you.</span></h1>
+      <p class="hero-sub">You don't need a recruiter. You don't need a template. You need a tool that takes what's real about you and makes sure the algorithm — and the human behind it — actually sees it.</p>
+      <div class="hero-cta">
+        <a href="#pricing" class="btn btn-primary btn-lg">Get early access →</a>
+        <a href="#how" class="btn btn-ghost btn-lg">See how it works</a>
+      </div>
+      <div class="trust-row">
+        <div class="trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Zero invented skills
+        </div>
+        <div class="trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          ATS-tested before download
+        </div>
+        <div class="trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Sounds like you, not AI
+        </div>
+      </div>
+    </div>
+
+```
+<div class="card-stack">
+  <div class="card-bg"></div>
+  <div class="card-bg2"></div>
+  <div class="resume-card">
+    <div class="card-header">
+      <div>
+        <div class="card-name">Jennifer Ugarte</div>
+        <div class="card-contact">Simpsonville, SC · linkedin.com/in/jenniferugarte1</div>
+      </div>
+      <div class="verified-chip">✓ Verified</div>
+    </div>
+    <div class="card-section">
+      <div class="card-section-label">Summary</div>
+      <div class="skeleton w-full"></div>
+      <div class="skeleton w-3q"></div>
+      <div class="skeleton w-half"></div>
+    </div>
+    <div class="card-section">
+      <div class="card-section-label">Experience</div>
+      <div class="skeleton w-3q"></div>
+      <div class="skeleton w-full"></div>
+      <div class="skeleton w-full"></div>
+      <div class="skeleton w-half"></div>
+    </div>
+    <div class="card-section">
+      <div class="card-section-label">Skills</div>
+      <div class="skeleton w-full"></div>
+      <div class="skeleton w-3q"></div>
+    </div>
+    <div class="ats-widget">
+      <div class="ats-ring"><span>94</span></div>
+      <div class="ats-label">
+        <strong>ATS Match Score</strong>
+        Likely to pass ✓
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- STRIP -->
+
+<div class="strip">
+  <div class="strip-item"><span>✓</span> No fabricated experience</div>
+  <div class="strip-item"><span>✓</span> ATS-tested before you apply</div>
+  <div class="strip-item"><span>✓</span> Three inputs. One honest output.</div>
+  <div class="strip-item"><span>✓</span> Honest gap analysis included</div>
+</div>
+
+<!-- HOW IT WORKS -->
+
+<section class="section" id="how">
+  <div class="section-inner">
+    <div class="eyebrow">How it works</div>
+    <h2 class="section-title">Three inputs.<br>One verified you.</h2>
+    <p class="section-sub">Most AI resume tools generate and hope for the best. We start from your truth and never leave it.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Upload your master resume</h3>
+        <p>Your real experience becomes the locked source of truth. Nothing gets added that isn't already yours.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Paste the job description</h3>
+        <p>We extract what the employer actually needs — required skills, keywords, and role-specific language that matters.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Tell us in your own words</h3>
+        <p>Describe what you actually did. The context your resume doesn't capture. This is how it sounds like you — not a template.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMISE -->
+
+<section class="section promise-section" id="promise">
+  <div class="section-inner">
+    <div class="promise-grid">
+      <div>
+        <div class="eyebrow">What the AI can do</div>
+        <h2 class="section-title" style="color:white;">Built to show the real you.</h2>
+        <p class="section-sub">We reframe what's already there. We surface what's buried. We make it land.</p>
+        <ul class="check-list">
+          <li><div class="check-icon">✓</div> Reframe your experience in the employer's language</li>
+          <li><div class="check-icon">✓</div> Surface buried skills that match the role</li>
+          <li><div class="check-icon">✓</div> Reorder bullets so what matters leads</li>
+          <li><div class="check-icon">✓</div> Strengthen weak phrasing without changing meaning</li>
+          <li><div class="check-icon">✓</div> Simulate how Workday, Greenhouse, and Lever read it</li>
+        </ul>
+      </div>
+      <div>
+        <div class="eyebrow" style="color:rgba(255,255,255,0.35); margin-top: 0.5rem;">What the AI cannot do</div>
+        <h2 class="section-title" style="color:rgba(255,255,255,0.5); font-size: 1.8rem; margin-bottom: 0.8rem;">These are constraints.<br>Not guidelines.</h2>
+        <p class="section-sub" style="margin-bottom: 1.5rem;">Encoded into the product from day one.</p>
+        <ul class="check-list cant-list">
+          <li><div class="check-icon x-icon">✗</div> Add tools or skills not in your inputs</li>
+          <li><div class="check-icon x-icon">✗</div> Inflate your years of experience</li>
+          <li><div class="check-icon x-icon">✗</div> Claim certifications you don't hold</li>
+          <li><div class="check-icon x-icon">✗</div> Invent responsibilities or titles</li>
+          <li><div class="check-icon x-icon">✗</div> Generate anything unverifiable against your background</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+
+<section class="section pricing-bg" id="pricing">
+  <div class="section-inner">
+    <div class="eyebrow">Pricing</div>
+    <h2 class="section-title">Simple pricing.<br>No surprises.</h2>
+    <p class="section-sub">For job seekers, by someone who's been one. No enterprise paywalls. Just what you need.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="plan-tier">Free</div>
+        <div class="plan-price">$0</div>
+        <p class="plan-tagline">Try it. See the difference.</p>
+        <ul class="plan-features">
+          <li>3 resume tailors per month</li>
+          <li>Basic ATS keyword score</li>
+          <li>DOCX download</li>
+        </ul>
+        <a href="#" class="btn btn-ghost" style="width:100%; justify-content:center;">Get started free</a>
+      </div>
+      <div class="price-card featured">
+        <div class="featured-badge">Most popular</div>
+        <div class="plan-tier">Pro</div>
+        <div class="plan-price">$19<sub>/mo</sub></div>
+        <p class="plan-tagline">Everything for an active job search.</p>
+        <ul class="plan-features">
+          <li>Unlimited resume tailoring</li>
+          <li>Full ATS simulation</li>
+          <li>Gap analyzer with honest fit score</li>
+          <li>Cold outreach generator</li>
+          <li>Job tracker dashboard</li>
+        </ul>
+        <a href="#" class="btn btn-primary" style="width:100%; justify-content:center;">Start Pro</a>
+      </div>
+      <div class="price-card">
+        <div class="plan-tier">Career Intensive</div>
+        <div class="plan-price">$49<sub>/mo</sub></div>
+        <p class="plan-tagline">Every edge for serious job seekers.</p>
+        <ul class="plan-features">
+          <li>Everything in Pro</li>
+          <li>Cover letter builder</li>
+          <li>Interview prep generator</li>
+          <li>LinkedIn summary optimizer</li>
+          <li>Priority support</li>
+        </ul>
+        <a href="#" class="btn btn-ghost" style="width:100%; justify-content:center;">Go intensive</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+
+<section class="cta-section">
+  <div class="section-inner" style="position:relative; z-index:1;">
+    <div class="eyebrow" style="color:rgba(255,255,255,0.6);">Early access</div>
+    <h2 class="section-title">Built by someone<br>who needed it.</h2>
+    <p class="section-sub">GetSeen.ai was built by a Senior Implementation Specialist who spent months doing this by hand — because no tool on the market told the truth about her experience. Now it does. For everyone.</p>
+    <a href="#" class="btn btn-white btn-lg">Join the waitlist →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+  <div class="logo">GetSeen.ai</div>
+  <div>© 2026 GetSeen.ai · All rights reserved</div>
+  <div>Built by Jennifer Ugarte</div>
+</footer>
+
+</body>
+</html>
